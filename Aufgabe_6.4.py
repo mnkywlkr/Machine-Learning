@@ -4,6 +4,20 @@ from sklearn.datasets import load_iris
 # data.target[[10, 25, 50]]
 # print(list(data.target))
 
+class Tree:
+    def __init__(self,name,branch):
+        self.name = name
+        self.branch = branch
+
+    def add_a_branch(self,branch):
+        self.branch.append(branch)
+
+#some tests for the tree class
+tree = Tree("",[])
+branch = Tree("branch",[])
+tree.add_a_branch(("label", branch.name))
+print(tree.branch)
+
 """
 def dtLearning (examples, attributes, parent_examples):
     if len(examples) == 0:
@@ -12,13 +26,14 @@ def dtLearning (examples, attributes, parent_examples):
     elif len(attributes) == 0:
         return plurality(examples)
     else
-        #suche das wichtigste Attribut
-        #tree = neuen Baum erzeugen
-        # für alle Elemente in A
+        # important_attribute = das wichtigste Attribut
+        tree = Tree("important_attribute",[])
+        for each_attribute_value in important_attribute
             #exs = Datensätze aus examples bei denen A dem Wert des Elements entspricht
             #subtree = dtLearning(exs, attributes-A, examples)
             #tree = appendBranch(label, subtree)
-        #return tree
+            tree.add_a_branch(each_attribute_value,subtree)
+        return tree
 
 """
 
@@ -42,5 +57,5 @@ def plurality(examples):
     return value_with_max_count
 
 
-data = [['animals', 'duck', 'duck', 'dog'], ['animals', 'duck', 'duck', 'dog']]
-print(plurality(data))
+#data = [['animals', 'duck', 'duck', 'dog'], ['animals', 'duck', 'duck', 'dog']]
+#print(plurality(data))
