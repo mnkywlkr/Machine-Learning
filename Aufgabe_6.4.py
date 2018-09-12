@@ -10,10 +10,15 @@ examples = [["sky", "air", "humid", "wind", "water", "forecast", "attack"],
             ["rainy", "cold", "high", "strong", "warm", "change", "-"]]
 
 
+class Branch:
+    def __init__(self, label):
+        self.label = label
+        self.tree = None
+
 class Tree:
-    def __init__(self, name, branch):
+    def __init__(self, name):
         self.name = name
-        self.branch = branch
+        self.branches = []
 
     def add_a_branch(self, branch):
         self.branch.append(branch)
