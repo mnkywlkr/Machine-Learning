@@ -1,13 +1,11 @@
-from sklearn.datasets import load_iris
-
 # data = load_iris()
 # data.target[[10, 25, 50]]
 # print(list(data.target))
 
-examples = [["sky", "air", "humid", "wind", "water", "forecast", "attack"],
-            ["sunny", "warm", "normal", "strong", "warm", "same", "+"],
-            ["sunny", "warm", "high", "strong", "warm", "same", "+"],
-            ["rainy", "cold", "high", "strong", "warm", "change", "-"]]
+weatherData = [["sky", "air", "humid", "wind", "water", "forecast", "attack"],
+               ["sunny", "warm", "normal", "strong", "warm", "same", "+"],
+               ["sunny", "warm", "high", "strong", "warm", "same", "+"],
+               ["rainy", "cold", "high", "strong", "warm", "change", "-"]]
 
 
 class Branch:
@@ -15,26 +13,28 @@ class Branch:
         self.label = label
         self.tree = None
 
+
 class Tree:
     def __init__(self, name):
         self.name = name
         self.branches = []
 
     def add_a_branch(self, branch):
-        self.branch.append(branch)
+        self.branches.append(branch)
 
 
 # some tests for the tree class
-tree = Tree("", [])
-branch = Tree("branch", [])
-tree.add_a_branch(("label", branch.name))
-#print(tree.branch)
+tree = Tree("")
+branch_test = Tree("branch")
+tree.add_a_branch(branch_test)
+# print(tree.branch)
 
 '''
 def dtLearning(examples, attributes, parent_examples):
     if len(examples) == 0:
         return plurality(parent_examples)
     # elif #same classification?
+        return classification()
     elif len(attributes) == 0:
         return plurality(examples)
     else:
@@ -50,8 +50,8 @@ def dtLearning(examples, attributes, parent_examples):
 '''
 
 
-def get_attr_values(attribute, examples):
-    copy_of_examples = examples
+def get_attr_values(attribute, data):
+    copy_of_examples = data
     attr_values = []
     i = 0
     for attribute_name in copy_of_examples[0]:
@@ -65,8 +65,7 @@ def get_attr_values(attribute, examples):
 
 
 # test for get_attr_values
-print(get_attr_values("sky", examples))
-
+# print(get_attr_values("sky", examples))
 
 
 def plurality(examples):
@@ -87,5 +86,21 @@ def plurality(examples):
             count = 0
     return value_with_max_count
 
+
 # data = [['animals', 'duck', 'duck', 'dog'], ['animals', 'duck', 'duck', 'dog']]
 # print(plurality(data))
+
+
+def get_classification(data):
+    return data[0][-1]
+
+
+def is_same_classifications(data):
+    return len(get_attr_values(get_classification(data), data)) <= 1
+
+
+sampledata = [["tries", "result"],
+              ["yes", "no"],
+              ["alot", "no"],
+              ["yes", "no"]]
+print(is_same_classifications(sampledata))
