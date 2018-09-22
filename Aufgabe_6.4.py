@@ -23,9 +23,12 @@ class Branch:
         self.label = label
         self.tree = None
 
-    def print_branch(self):
-        print("--",self.label,"->")
-        print(self.tree)
+    def __str__(self):
+        result = "--" + self.label + "-->"
+        if type(self.tree) is Tree:
+            result += self.tree.name + "\n"
+        result += str(self.tree) + "\n"
+        return result
 
 
 class Tree:
@@ -33,21 +36,17 @@ class Tree:
         self.name = name
         self.branches = []
 
-    def add_a_branch(self, new_tree,label):
+    def add_a_branch(self, new_tree, label):
         branch = Branch(label)
         branch.tree = new_tree
         self.branches.append(branch)
 
-    def print_branches(self):
+    def __str__(self):
+        result = ""
         for b in self.branches:
-            print(b.label)
-
-    def print_tree(self):
-        print(self.name)
-        if len(self.branches) != 0:
-            for b in self.branches:
-                b.print_branch()
-
+            result += self.name
+            result += str(b)
+        return result
 
 
 # print(tree.branch)
@@ -301,6 +300,7 @@ def getImportanceAttributeName(examples, attributes):
 # TEST
 
 end_result_tree = dtLearning(weatherData2, weatherData[0], [])
-i = 1
+
+print(end_result_tree)
 
 #dtLearning(weatherData2, weatherData[0], []).print_tree()
