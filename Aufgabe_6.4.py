@@ -1,15 +1,8 @@
 import numpy as np
 
-# data = load_iris()
-# data.target[[10, 25, 50]]
-# print(list(data.target))
+attributes = ["sky", "air", "humid", "wind", "water", "forecast", "attack"]
 
-weatherData = [["sky", "air", "humid", "wind", "water", "forecast", "attack"],
-               ["sunny", "warm", "normal", "strong", "warm", "same", "+"],
-               ["sunny", "warm", "high", "strong", "warm", "same", "+"],
-               ["rainy", "cold", "high", "strong", "warm", "change", "-"]]
-
-weatherData2 = [["sky", "sunny", "sunny", "rainy", "sunny", "sunny", "rainy"],
+weatherData = [["sky", "sunny", "sunny", "rainy", "sunny", "sunny", "rainy"],
                 ["air", "warm", "warm", "cold", "warm", "warm", "warm"],
                 ["humid", "normal", "high", "high", "high", "normal", "high"],
                 ["wind", "strong", "strong", "strong", "strong", "weak", "strong"],
@@ -167,27 +160,30 @@ def get_attr_values(attribute, data):
 
 
 def plurality(examples):
-    attribute_values = examples[-1]
-    attribute_values.pop(0)
-    attribute_values.sort()
-    attribute_value_name = attribute_values[0]
+    output_values = examples[-1]
+    output_values.pop(0) #remove label
+    output_values.sort()
+    attribute_value_name = output_values[0]
     count = 0
     max_count = 0
-    value_with_max_count = 'none'
-    for i in attribute_values:
-        if i == attribute_value_name:
+    value_with_max_count = attribute_value_name
+    for current_value in output_values:
+        if current_value == attribute_value_name:
             count += 1
         else:
-            if max_count < count:
-                max_count = count
-                value_with_max_count = i
-            count = 0
+            if max_count < count: #check max_count
+               max_count = count
+               value_with_max_count = attribute_value_name
+            attribute_value_name = current_value #count next value
+            count = 1
+    if max_count < count: #check max_count
+        max_count = count
+        value_with_max_count = attribute_value_name
     return value_with_max_count
 
-
-# data = [['animals', 'duck', 'duck', 'dog'], ['animals', 'duck', 'duck', 'dog']]
-# print(plurality(data))
-
+#Test for plurality
+#data = [['animals', 'duck', 'duck', 'dog', 'dog', 'dog'], ['animals', 'duck', 'duck', 'dog', 'dog', 'dog']]
+#print(plurality(data))
 
 def get_classification(data):
     return data[-1][0]
@@ -293,14 +289,9 @@ def getImportanceAttributeName(examples, attributes):
                 # Name des wichtigsten Attributes in ig_max_attribute_name speichern
     return ig_max_attribute_name
 
-    # attributes = ["sky", "air", "humid", "wind", "water", "forecast", "attack"]
-    # print(testImportance(weatherData2, attributes))
+    # print(testImportance(weatherData, attributes))
 
 
 # TEST
-
-end_result_tree = dtLearning(weatherData2, weatherData[0], [])
-
+end_result_tree = dtLearning(weatherData, attributes, [])
 print(end_result_tree)
-
-#dtLearning(weatherData2, weatherData[0], []).print_tree()
